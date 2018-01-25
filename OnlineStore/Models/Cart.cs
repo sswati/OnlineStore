@@ -11,11 +11,8 @@ namespace OnlineStore.Models
         [Key]
         public int CartId { get; set; }
 
-
-
         public virtual IEnumerable<Wine> Wine { get; set; }
 
         public virtual IEnumerable<Chocolate> Chocolate {get;set;}
-
     }
 }

@@ -28,10 +28,9 @@ namespace OnlineStore.Models
         [Required(ErrorMessage = "An email address is required")]
         public string Email { get; set; }
 
-      public IEnumerable<BillingAddress> BillingAddress { get; set; }
+        public virtual ICollection<BillingAddress> BillingAddress { get; set; }
 
-
-        public IEnumerable<PurchasedDetails> PurchasedDetails { get; set; }
+        public virtual ICollection<PurchasedDetails> PurchasedDetails { get; set; }
     }
 }
 

@@ -17,12 +17,7 @@ namespace OnlineStore.Controllers
         // GET: Wines
         public ActionResult Index()
         {
-            var wine = db.Wines.ToList();
-            var chocolates = db.Chocolates.ToList();
-            var customers = db.CustomerDetails.ToList();
-            var billingAdd = db.BillingAddress.ToList();
-
-            return View(wine);
+            return View();
         }
 
         // GET: Wines/Details/5

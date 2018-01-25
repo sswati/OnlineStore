@@ -7,15 +7,10 @@ using System.Web;
 
 namespace OnlineStore.Models
 {
-
-
-
     public class PurchasedDetails
     {
         [Key]
         public int PurchasedDetailsId { get; set; }
-
-
 
         [Required]
         [DataType(DataType.Date)]
@@ -23,19 +18,17 @@ namespace OnlineStore.Models
 
         public DateTime Date { get; set; }
 
-        [Range(1.00, 100.00,
-            ErrorMessage = "Price must be between 1.00 and 100.00")]
+        [Range(1.00, 100.00, ErrorMessage = "Price must be between 1.00 and 100.00")]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
-
         public Shipping Shipping { get; set; }
+
         public virtual IEnumerable<Chocolate> Chocolate { get; set; }
 
         public virtual IEnumerable<Wine> Wine { get; set; }
 
         public virtual CustomerDetails CustomerDetails { get; set; }
-
 
         public int WineQuantity { get; set; }
 
@@ -47,14 +40,11 @@ namespace OnlineStore.Models
         [NotMapped]
         private Dictionary<Wine, int> WineList { get; set; }
 
-
         private decimal? _TotalPrice;
 
         [NotMapped]
         public decimal? TotalPrice
-
         {
-
             get
             {
 
@@ -74,7 +64,6 @@ namespace OnlineStore.Models
 
 
             }
-
         }
     }
 }

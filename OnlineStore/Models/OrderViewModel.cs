@@ -6,18 +6,9 @@ using System.Web;
 
 namespace OnlineStore.Models
 {
-     
     //display several orders. Iterate 
     public class OrderViewModel
     {
         public IEnumerable<PurchasedDetails>ExtendedPurchaseDetails { get; set; }
-      
-        
-        
-
-}
-
-
-
-
     }
+}
