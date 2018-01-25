@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineStore.Models.Wine>
+﻿@model IEnumerable<OnlineStore.Models.Chocolate>
 
 @{
     ViewBag.Title = "Index";
@@ -12,16 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.CocoaContent)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Image)
@@ -29,23 +23,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
+            @Html.DisplayFor(modelItem => item.CocoaContent)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.District)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Image)
@@ -53,11 +40,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
-        
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.WineId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.WineId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.WineId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ChocolateId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ChocolateId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChocolateId })
         </td>
     </tr>
 }

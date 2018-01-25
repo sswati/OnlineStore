@@ -31,6 +31,8 @@ namespace OnlineStore.Models
         public virtual ICollection<BillingAddress> BillingAddress { get; set; }
 
         public virtual ICollection<PurchasedDetails> PurchasedDetails { get; set; }
+
+        public virtual Cart Carts { get; set; }
     }
 }
 

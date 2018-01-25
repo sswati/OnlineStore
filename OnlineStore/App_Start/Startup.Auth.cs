@@ -58,11 +58,13 @@ namespace OnlineStore
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "434387294703-ofi6proabh56ih40lk6r5ip5bgtji1n3.apps.googleusercontent.com",
+                ClientSecret = "8d7YbsTdGE_jvtmo4BXi40hT",
+                
+                
+            });
         }
     }
 }

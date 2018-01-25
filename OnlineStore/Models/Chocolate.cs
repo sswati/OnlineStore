@@ -22,6 +22,7 @@ namespace OnlineStore.Models
         public int ChocolateId { get; set; }
 
         [Required(ErrorMessage = "Please Select the Cocoa percentage ")]
+        [DisplayName("Cocoa Content")]
         public CocoaContent CocoaContent { get; set; }
 
         [Required]

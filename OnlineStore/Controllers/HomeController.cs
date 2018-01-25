@@ -7,6 +7,8 @@ using System.Web.Mvc;
 
 namespace OnlineStore.Controllers
 {
+
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

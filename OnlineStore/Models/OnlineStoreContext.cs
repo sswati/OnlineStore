@@ -115,5 +115,7 @@ namespace OnlineStore.Models
         public DbSet<PurchasedDetails> PurchasedDetails { get; set; }
 
         public DbSet<Shipping> Shipping { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
     }
 }
