@@ -12,6 +12,8 @@ namespace OnlineStore.Models
         [Key]
         public int PurchasedDetailsId { get; set; }
 
+        public string CustomerId { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -27,8 +29,6 @@ namespace OnlineStore.Models
         public virtual ICollection<Chocolate> Chocolate { get; set; }
 
         public virtual ICollection<Wine> Wine { get; set; }
-
-        public virtual ApplicationUser User { get; set; }
 
         public int WineQuantity { get; set; }
 

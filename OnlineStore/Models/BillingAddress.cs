@@ -13,6 +13,7 @@ namespace OnlineStore.Models
         [Key]
         public int BillingAddressId { get; set; }
 
+        public string CustomerId { get; set; }
         public string Fullname { get; set; }
 
         [DisplayName("House Name")]
