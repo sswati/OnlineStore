@@ -13,11 +13,6 @@ namespace OnlineStore.Models
         [Key]
         public int BillingAddressId { get; set; }
 
-        [ForeignKey("CustomerDetails")]
-        public int CustomerDetailsId {get;set;}
-
-        public CustomerDetails CustomerDetails { get; set; }
-
         public string Fullname { get; set; }
 
         [DisplayName("House Name")]

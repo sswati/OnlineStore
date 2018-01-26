@@ -95,20 +95,32 @@ namespace OnlineStore.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
-
-                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email };
-                    var newUserResult = await UserManager.CreateAsync(user);
-                    if (newUserResult.Succeeded)
+                    try
                     {
-                        newUserResult = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                        var user = new ApplicationUser
+                        {
+                            UserName = loginInfo.ExternalIdentity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value + " " + loginInfo.ExternalIdentity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value,
+                            Email = loginInfo.Email,
+                            FirstName = loginInfo.ExternalIdentity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value,
+                            Surname = loginInfo.ExternalIdentity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value
+                        };
+                        var newUserResult = await UserManager.CreateAsync(user);
                         if (newUserResult.Succeeded)
                         {
-                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                            return RedirectToLocal("/");
+                            newUserResult = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                            if (newUserResult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                                return RedirectToLocal("/");
+                            }
                         }
-                    }
 
-                    AddErrors(newUserResult);
+                        AddErrors(newUserResult);
+                    }
+                    catch
+                    {
+
+                    }
                     return View("ExternalLoginFailure");
             }
         }

@@ -1,9 +1,11 @@
-﻿using OnlineStore.Models;
+﻿using Microsoft.AspNet.Identity.Owin;
+using OnlineStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineStore.Controllers
 {
@@ -13,13 +15,7 @@ namespace OnlineStore.Controllers
     {
         public ActionResult Index()
         {
-            using(var context = new OnlineStoreContext())
-            {
-                var wine = context.Wines.ToList();
-                var chocolates = context.Chocolates.ToList();
-                var customers = context.CustomerDetails.ToList();
-                var billingAdd = context.BillingAddress.ToList();
-            }
+            var id = User.Identity.GetUserId();
 
             return View();
         }

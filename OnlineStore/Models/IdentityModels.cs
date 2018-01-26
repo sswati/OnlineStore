@@ -3,6 +3,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace OnlineStore.Models
 {
@@ -16,13 +19,29 @@ namespace OnlineStore.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //[Required(ErrorMessage = "A First Name is required")]
+        [DisplayName("First Name")]
+        [StringLength(100, MinimumLength = 3)]
+        public string FirstName { get; set; }
+
+        //[Required(ErrorMessage = "A Surname is required")]
+        [DisplayName("Surname")]
+        [StringLength(100, MinimumLength = 2)]
+        public string Surname { get; set; }
+
+        public virtual ICollection<BillingAddress> BillingAddress { get; set; }
+
+        public virtual ICollection<PurchasedDetails> PurchasedDetails { get; set; }
+
+        public virtual Cart Cart { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
-
+            Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
