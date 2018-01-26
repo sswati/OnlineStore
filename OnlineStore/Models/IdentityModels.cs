@@ -29,12 +29,6 @@ namespace OnlineStore.Models
         [DisplayName("Surname")]
         [StringLength(100, MinimumLength = 2)]
         public string Surname { get; set; }
-
-        public virtual ICollection<BillingAddress> BillingAddress { get; set; }
-
-        public virtual ICollection<PurchasedDetails> PurchasedDetails { get; set; }
-
-        public virtual Cart Cart { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

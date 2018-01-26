@@ -11,6 +11,7 @@ namespace OnlineStore.Models
         [Key]
         public int CartId { get; set; }
 
+        public string CustomerId { get; set; }
         public virtual ICollection<Wine> Wine { get; set; }
 
         public virtual ICollection<Chocolate> Chocolate {get;set;}
