@@ -207,8 +207,16 @@ namespace OnlineStore.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+            
+            
+            //create personal details
+
+       
         }
         #endregion
+
+     
+
 
 
         //
