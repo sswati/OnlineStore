@@ -200,7 +200,6 @@
     <Compile Include="Models\BillingAddress.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Chocolate.cs" />
-    <Compile Include="Models\CustomerDetails.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OnlineStoreContext.cs" />

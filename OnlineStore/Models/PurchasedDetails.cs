@@ -24,11 +24,11 @@ namespace OnlineStore.Models
 
         public Shipping Shipping { get; set; }
 
-        public virtual IEnumerable<Chocolate> Chocolate { get; set; }
+        public virtual ICollection<Chocolate> Chocolate { get; set; }
 
-        public virtual IEnumerable<Wine> Wine { get; set; }
+        public virtual ICollection<Wine> Wine { get; set; }
 
-        public virtual CustomerDetails CustomerDetails { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int WineQuantity { get; set; }
 
@@ -47,7 +47,6 @@ namespace OnlineStore.Models
         {
             get
             {
-
                 this.TotalPrice = ChocolateList.Select(p => p.Value * p.Key.Price).Sum();
 
                 this.TotalPrice += WineList.Select(p => p.Value * p.Key.Price).Sum();
@@ -59,10 +58,7 @@ namespace OnlineStore.Models
 
             set
             {
-
                 this._TotalPrice = value;
-
-
             }
         }
     }
