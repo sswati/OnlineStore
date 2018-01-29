@@ -204,6 +204,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OnlineStoreContext.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\PaymentOptions.cs" />
+    <Compile Include="Models\Products.cs" />
     <Compile Include="Models\PurchasedDetails.cs" />
     <Compile Include="Models\Shipping.cs" />
     <Compile Include="Models\Wine.cs" />
@@ -278,6 +280,14 @@
     <Content Include="Views\Chocolates\Details.cshtml" />
     <Content Include="Views\Chocolates\Edit.cshtml" />
     <Content Include="Views\Chocolates\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\Addresses.cshtml" />
+    <Content Include="Views\Account\Address.cshtml" />
+    <Content Include="Views\Account\Orders.cshtml" />
+    <Content Include="Views\Account\PaymentCard.cshtml" />
+    <Content Include="Views\Account\Cards.cshtml" />
+    <Content Include="Views\Shared\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

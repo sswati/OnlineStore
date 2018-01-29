@@ -14,5 +14,9 @@ namespace OnlineStore.Models
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public string Details { get; set; }
+
+        //1 cart has 1 shipping option 
     }
 }

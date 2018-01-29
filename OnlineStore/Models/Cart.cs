@@ -11,7 +11,15 @@ namespace OnlineStore.Models
         [Key]
         public int CartId { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         public string CustomerId { get; set; }
+
+        public int? ChocolateId { get; set; }
+
+        public int Count { get; set;}
+
+        public int? WineId { get; set; }
         public virtual ICollection<Wine> Wine { get; set; }
 
         public virtual ICollection<Chocolate> Chocolate {get;set;}

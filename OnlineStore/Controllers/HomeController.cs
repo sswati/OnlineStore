@@ -15,15 +15,6 @@ namespace OnlineStore.Controllers
     {
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                using (var context = new OnlineStoreContext())
-                {
-                    var id = User.Identity.GetUserId();
-                    var billingAddresses = context.BillingAddress.Where(p => p.CustomerId == id).ToList();
-
-                }
-            }
 
             return View();
         }

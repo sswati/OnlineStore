@@ -47,7 +47,7 @@ namespace OnlineStore.Models
         public OnlineStoreContext() : base("DefaultConnection")
         {
             this.Database.CommandTimeout = 180;
-            Database.SetInitializer<OnlineStoreContext>(new OnlineStoreInitializer());
+            //Database.SetInitializer<OnlineStoreContext>(new OnlineStoreInitializer());
         }
 
         public DbSet<Wine> Wines { get; set; }
@@ -61,5 +61,7 @@ namespace OnlineStore.Models
         public DbSet<Shipping> Shipping { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
+
+        public System.Data.Entity.DbSet<OnlineStore.Models.PaymentOptions> PaymentOptions { get; set; }
     }
 }
