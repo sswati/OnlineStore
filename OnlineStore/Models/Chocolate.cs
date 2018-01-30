@@ -30,6 +30,7 @@ namespace OnlineStore.Models
 
         public string Image { get; set; }
         public decimal Price { get; set; }
+
         //public IEnumerable<Wine> Wines { get; set; }
     }
 }

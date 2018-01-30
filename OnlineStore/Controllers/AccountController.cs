@@ -15,8 +15,10 @@ namespace OnlineStore.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        #region Login
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
 
         public AccountController()
         {
@@ -52,6 +54,9 @@ namespace OnlineStore.Controllers
             }
         }
 
+        #endregion
+
+        #region Main
         //GET: ACCOUNT/INDEX
         public ActionResult Index()
         {
@@ -162,7 +167,7 @@ namespace OnlineStore.Controllers
         //GET: Account/PaymentCard
         public ActionResult PaymentCard()
         {
-          
+
             return View();
         }
 
@@ -176,15 +181,15 @@ namespace OnlineStore.Controllers
         [Authorize]
         public ActionResult Cards()
         {
-                using (var context = new OnlineStoreContext())
-                {
-                    var userId = User.Identity.GetUserId();
-                    var cardsOp = context.PaymentOptions.Where(p => p.CustomerId == userId).ToList();
+            using (var context = new OnlineStoreContext())
+            {
+                var userId = User.Identity.GetUserId();
+                var cardsOp = context.PaymentOptions.Where(p => p.CustomerId == userId).ToList();
 
-                    return View(cardsOp);
+                return View(cardsOp);
 
-                }
-                
+            }
+
         }
 
         //create a cart. 
@@ -194,30 +199,30 @@ namespace OnlineStore.Controllers
         {
             using (var context = new OnlineStoreContext())
             {
-                var chocolateItem=context.Carts.SingleOrDefault(p => p.ChocolateId == cart.ChocolateId);
+                var chocolateItem = context.Carts.SingleOrDefault(p => p.ChocolateId == cart.ChocolateId);
                 var wineItem = context.Carts.SingleOrDefault(p => p.WineId == cart.WineId);
-               //var cartItem = context.Carts.Where(p => p.WineId == cart.WineId || p.ChocolateId == cart.ChocolateId).SingleOrDefault();
+                //var cartItem = context.Carts.Where(p => p.WineId == cart.WineId || p.ChocolateId == cart.ChocolateId).SingleOrDefault();
 
-                if(chocolateItem==null || wineItem==null)
+                if (chocolateItem == null || wineItem == null)
                 {
                     chocolateItem = new Cart
                     {
                         CartId = +1,
                         ChocolateId = cart.ChocolateId,
-                        WineId=cart.WineId,
+                        WineId = cart.WineId,
                         DateCreated = DateTime.Now,
-                        Count=1
+                        Count = 1
 
                     };
                     context.Carts.Add(chocolateItem);
                 }
                 else
                 {
-                    var addItem = chocolateItem.Count +1;
+                    var addItem = chocolateItem.Count + 1;
                 }
-                
+
             }
-                return View();
+            return View();
         }
 
         //POST: /Account/Cart
@@ -238,7 +243,7 @@ namespace OnlineStore.Controllers
 
         }
         */
-       
+
         //GET: Account/RemoveCartItem
         public ActionResult RemoveCartItem(int id, int cartId)
         {
@@ -247,7 +252,7 @@ namespace OnlineStore.Controllers
                 var cart = context.Carts.Where(P => P.CartId == id);
 
                 //delete the cart item
-               
+
                 if (cart != null)
                 {
 
@@ -279,23 +284,25 @@ namespace OnlineStore.Controllers
         [Authorize]
         public ActionResult CartList()
         {
-            
-                using (var context = new OnlineStoreContext())
-                {
-                    var userId = User.Identity.GetUserId();
-                    var cartList = context.Carts.Where(p => p.CustomerId == userId).ToList();
 
-                    return View(cartList);
+            using (var context = new OnlineStoreContext())
+            {
+                var userId = User.Identity.GetUserId();
+                var cartList = context.Carts.Where(p => p.CustomerId == userId).ToList();
 
-                }
-            
-            
+                return View(cartList);
+
+            }
+
+
         }
 
-       
-       
 
 
+
+        #endregion
+
+        #region LoginExt
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -411,6 +418,7 @@ namespace OnlineStore.Controllers
 
             base.Dispose(disposing);
         }
+        #endregion
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -476,8 +484,7 @@ namespace OnlineStore.Controllers
         }
         #endregion
 
-
-
+        #region delete
 
 
         //
@@ -729,5 +736,7 @@ namespace OnlineStore.Controllers
           }
 
 */
+
+        #endregion
     }
 }
