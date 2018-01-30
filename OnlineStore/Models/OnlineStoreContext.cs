@@ -12,34 +12,31 @@ namespace OnlineStore.Models
         {
             protected override void Seed(OnlineStoreContext context)
             {
-                var wines = new Wine[]
+                var products = new Product[]
                 {
-                    new Wine()
+                    new Product()
                     {
-                        Description="Sweet",
-                        District="France",
-                        Type=Type.White,
-                        Price=10.00M,
-                        Name="Chardonnay",
-                        Chocolates = new List<Chocolate>()
+                        Description = "Sweet",
+                        //District="France",
+                        //Type=Type.White,
+                        Price = 10.00M,
+                        Name = "Chardonnay",
+                        Properties = new List<PropertyAndValue>()
                         {
-                            new Chocolate()
+                            new PropertyAndValue()
                             {
-                                CocoaContent = CocoaContent.Dark,
-                                Name = "Brazil Nuts",
-                                Price=10.00M,
-                            },
-                            new Chocolate()
-                            {
-                                CocoaContent=CocoaContent.Milk,
-                                Name="Mango",
-                                Price=12.00M,
+                                Property = new Property()
+                                {
+                                    Name = "Wine Type"
+                                },
+
+                                Value = "White"
                             }
                         }
                     }
                 };
-                
-                context.Wines.AddRange(wines);
+
+                context.Products.AddRange(products);
                 context.SaveChanges();
             }
         }
@@ -50,9 +47,9 @@ namespace OnlineStore.Models
             Database.SetInitializer<OnlineStoreContext>(new OnlineStoreInitializer());
         }
 
-        public DbSet<Wine> Wines { get; set; }
+        //public DbSet<Wine> Wines { get; set; }
 
-        public DbSet<Chocolate> Chocolates { get; set; }
+        //public DbSet<Chocolate> Chocolates { get; set; }
 
         public DbSet<BillingAddress> BillingAddress { get; set; }
 
@@ -61,5 +58,11 @@ namespace OnlineStore.Models
         public DbSet<Shipping> Shipping { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<PropertyAndValue> ProductProperties { get; set; }
+
+        public DbSet<Property> ProductPropertyNames { get; set; }
     }
 }

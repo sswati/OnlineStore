@@ -14,5 +14,9 @@ namespace OnlineStore.Models
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public TimeSpan EstimatedShippingTime { get; set; }
     }
 }

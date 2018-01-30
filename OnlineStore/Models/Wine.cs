@@ -9,32 +9,16 @@ namespace OnlineStore.Models
 {
     public enum Type
     {
-
         Red,
         White,
     }
-    public class Wine
+    public class Wine : Product
     {
-        [Key]
-        public int WineId { get; set; }
-
         public Type Type { get; set; }
-
-        [Required(ErrorMessage = "Enter the name of a Wine")]
-        [StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; }
 
         [Required(ErrorMessage = "Enter the district of the Wine")]
         [StringLength(100, MinimumLength = 3)]
         public string District { get; set; }
-
-        [Required(ErrorMessage = "Enter a descritpion of the Wine")]
-        [StringLength(100, MinimumLength = 3)]
-        public string Description { get; set; }
-        
-        public string Image { get; set; }
-        
-        public decimal Price { get; set; }
 
         public virtual ICollection<Chocolate> Chocolates { get; set; }
     }

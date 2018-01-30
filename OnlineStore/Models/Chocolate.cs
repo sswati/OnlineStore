@@ -16,21 +16,11 @@ namespace OnlineStore.Models
         Milk=46,
     }
 
-    public class Chocolate
+    public class Chocolate : Product
     {
-        [Key]
-        public int ChocolateId { get; set; }
-
         [Required(ErrorMessage = "Please Select the Cocoa percentage ")]
         [DisplayName("Cocoa Content")]
         public CocoaContent CocoaContent { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public string Image { get; set; }
-        public decimal Price { get; set; }
-        //public IEnumerable<Wine> Wines { get; set; }
     }
 }
 

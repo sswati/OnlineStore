@@ -7,39 +7,40 @@ using System.Web;
 
 namespace OnlineStore.Models
 {
-    public class PurchasedDetails
+    public class PurchasedDetails : Cart
     {
-        [Key]
-        public int PurchasedDetailsId { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public string CustomerId { get; set; }
+        public DateTime OrderedDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public DateTime Date { get; set; }
+        public DateTime DispatchedDate { get; set; }
 
-        [Range(1.00, 100.00, ErrorMessage = "Price must be between 1.00 and 100.00")]
-        [DataType(DataType.Currency)]
-        public decimal UnitPrice { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public Shipping Shipping { get; set; }
+        public DateTime ArrivalDate { get; set; }
+        
+        /*
 
-        public virtual ICollection<Chocolate> Chocolate { get; set; }
+        //public virtual ICollection<Chocolate> Chocolate { get; set; }
 
-        public virtual ICollection<Wine> Wine { get; set; }
+        //public virtual ICollection<Wine> Wine { get; set; }
 
         public int WineQuantity { get; set; }
 
         public int ChocoQuantity { get; set; }
-
         [NotMapped]
         private Dictionary<Chocolate, int> ChocolateList { get; set; }
 
         [NotMapped]
         private Dictionary<Wine, int> WineList { get; set; }
-
         private decimal? _TotalPrice;
 
         [NotMapped]
@@ -61,6 +62,7 @@ namespace OnlineStore.Models
                 this._TotalPrice = value;
             }
         }
+        */
     }
 }
 
