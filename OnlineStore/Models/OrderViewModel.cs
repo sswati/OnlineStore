@@ -9,6 +9,6 @@ namespace OnlineStore.Models
     //display several orders. Iterate 
     public class OrderViewModel
     {
-        public IEnumerable<PurchasedDetails>ExtendedPurchaseDetails { get; set; }
+        public IList<PurchasedDetails>ExtendedPurchaseDetails { get; set; }
     }
 }

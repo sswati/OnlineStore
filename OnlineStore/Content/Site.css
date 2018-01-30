@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*override*/
+
+.glyphicon{
+    top: 15px;
+}

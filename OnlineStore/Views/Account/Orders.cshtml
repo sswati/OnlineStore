@@ -1,0 +1,28 @@
+﻿@model List<OnlineStore.Models.PurchasedDetails>
+
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<div>
+
+    @foreach(var item in Model)
+    {
+        <div>@Html.DisplayNameFor(model=>item.PurchasedDetailsId)
+             @Html.DisplayFor(model=>item.PurchasedDetailsId)
+        </div>
+
+        <div>@Html.DisplayNameFor(model=>item.TotalPrice)
+             @Html.DisplayFor(model=>item.TotalPrice)
+        </div>
+
+        <div> @Html.DisplayNameFor(model=>item.Shipping)
+              @Html.DisplayFor(model=>item.Shipping)
+       </div>
+
+    }
+
+</div>

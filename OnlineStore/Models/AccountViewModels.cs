@@ -109,4 +109,13 @@ namespace OnlineStore.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class AddressViewModel
+    {
+        public List<string> CountriesList { get; set; }
+
+        public BillingAddress BillingAddress { get; set; }
+    }
 }
+
+        
