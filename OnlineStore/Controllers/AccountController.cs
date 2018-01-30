@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlineStore.Models;
+using System.Collections.Generic;
+using MoreLinq;
 
 namespace OnlineStore.Controllers
 {
@@ -53,252 +55,6 @@ namespace OnlineStore.Controllers
                 _userManager = value;
             }
         }
-
-        #endregion
-
-        #region Main
-        //GET: ACCOUNT/INDEX
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        //Application db contains all personal information about the user. e.g name, address, id-unique identifier of the user. 
-        //match the id (userid) obtained from logging in to the Id in the application db
-        public ActionResult Details()
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                //current user
-                var userId = User.Identity.GetUserId();
-
-                //match the Id in db with current user
-                var user = context.Users.Single(p => p.Id == userId);
-
-                return View(user);
-            }
-        }
-
-        //check if the billing address is null. If null redirect to new address. If not null display address; AddressViewModel is found in the accountviewmodel
-        public ActionResult Address(int? AccountId = null)
-        {
-            var model = new AddressViewModel()
-            {
-                CountriesList = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                    .Select(p =>
-                    {
-                        try
-                        {
-                            return new RegionInfo(p.LCID).DisplayName;
-                        }
-                        catch
-                        {
-                            return null;
-                        }
-                    })
-                    .Where(p => p != null)
-                    .Distinct()
-                    .OrderBy(p => p)
-                    .ToList(),
-                BillingAddress = new BillingAddress()
-            };
-
-            if (AccountId == null)
-            {
-                return View(model);
-            }
-
-            using (var context = new OnlineStoreContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var address = context.BillingAddress.Where(p => p.CustomerId == userId).Single();
-
-                model.BillingAddress = address;
-
-                return View(model);
-            }
-        }
-
-        public ActionResult Addresses()
-        {
-            using (var context = new OnlineStoreContext())
-            {
-                var userId = User.Identity.GetUserId();
-
-                //return a list of billing addresses where the customerid == userid
-                var billingAddresses = context.BillingAddress.Where(p => p.CustomerId == userId).ToList();
-
-                return View(billingAddresses);
-            }
-
-        }
-        //purpose obtain orders that belong to 1 user; therefore create several orders/customer, therefore create ToList; several orderids are linked to one Customer
-        //there is no order form as this is used to display items that have been ordered
-        //purchaseddetails table-this contains details of items ordered/customer
-        //user logins ensure to view their purchased details. userid is id given to user-user identifier. match the userId (loggin id ) to custoemrid
-        //GET method as we are not modifiying anything
-        public ActionResult Orders(int? AccountId = null)
-        {
-            if (AccountId != null)
-            {
-                using (var context = new OnlineStoreContext())
-                {
-
-                    var userId = User.Identity.GetUserId();
-                    var orders = context.PurchasedDetails.Where(p => p.CustomerId == userId).ToList();
-                    var models = new OrderViewModel()
-                    {
-                        //contain list of purchases
-
-                    };
-
-                    return View(models);
-
-
-                }
-
-
-            }
-            return View();
-        }
-
-        //create Credit Card form
-        //1 user can have several credit cards stored
-        //GET: Account/PaymentCard
-        public ActionResult PaymentCard()
-        {
-
-            return View();
-        }
-
-        public ActionResult SubmitCards(PaymentOptions)
-        {
-
-        }
-
-        //list of credit cards and choose from them
-        //HTTP:POST Account/Cards
-        [Authorize]
-        public ActionResult Cards()
-        {
-            using (var context = new OnlineStoreContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var cardsOp = context.PaymentOptions.Where(p => p.CustomerId == userId).ToList();
-
-                return View(cardsOp);
-
-            }
-
-        }
-
-        //create a cart. 
-        //1.create the cart;2. add items to cart. create a new item if cart item does not exist
-        //GET:/Account/Cart
-        public ActionResult AddCart(int cart, int cartItem)
-        {
-            using (var context = new OnlineStoreContext())
-            {
-                var chocolateItem = context.Carts.SingleOrDefault(p => p.ChocolateId == cart.ChocolateId);
-                var wineItem = context.Carts.SingleOrDefault(p => p.WineId == cart.WineId);
-                //var cartItem = context.Carts.Where(p => p.WineId == cart.WineId || p.ChocolateId == cart.ChocolateId).SingleOrDefault();
-
-                if (chocolateItem == null || wineItem == null)
-                {
-                    chocolateItem = new Cart
-                    {
-                        CartId = +1,
-                        ChocolateId = cart.ChocolateId,
-                        WineId = cart.WineId,
-                        DateCreated = DateTime.Now,
-                        Count = 1
-
-                    };
-                    context.Carts.Add(chocolateItem);
-                }
-                else
-                {
-                    var addItem = chocolateItem.Count + 1;
-                }
-
-            }
-            return View();
-        }
-
-        //POST: /Account/Cart
-        //Add items in a cart
-        //create a new cart if cart is null
-        /*[HttpPost]
-        public ActionResult AddCart(Cart cart)
-        {
-            using (var context = new OnlineStoreContext())
-
-            {
-
-                context.Carts.Add(cart);
-                context.SaveChanges();
-
-                return View(cart);
-            }
-
-        }
-        */
-
-        //GET: Account/RemoveCartItem
-        public ActionResult RemoveCartItem(int id, int cartId)
-        {
-            using (var context = new OnlineStoreContext())
-            {
-                var cart = context.Carts.Where(P => P.CartId == id);
-
-                //delete the cart item
-
-                if (cart != null)
-                {
-
-
-
-                }
-
-                return View();
-
-            }
-
-        }
-
-        //GET: Account/EmptyCart
-        public ActionResult EmptyCart()
-        {
-            using (var context = new OnlineStoreContext())
-            {
-
-
-                return View();
-            }
-
-        }
-
-        //Diplay list of items in a cart
-        //GET: Account/CartList
-        //Display Paypal and Credit Card hpyerlinks from cartList page
-        [Authorize]
-        public ActionResult CartList()
-        {
-
-            using (var context = new OnlineStoreContext())
-            {
-                var userId = User.Identity.GetUserId();
-                var cartList = context.Carts.Where(p => p.CustomerId == userId).ToList();
-
-                return View(cartList);
-
-            }
-
-
-        }
-
-
-
 
         #endregion
 
@@ -418,6 +174,254 @@ namespace OnlineStore.Controllers
 
             base.Dispose(disposing);
         }
+        #endregion
+
+        #region Main
+        //GET: ACCOUNT/INDEX
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        //Application db contains all personal information about the user. e.g name, address, id-unique identifier of the user. 
+        //match the id (userid) obtained from logging in to the Id in the application db
+        public ActionResult Details()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                //current user
+                var userId = User.Identity.GetUserId();
+
+                //match the Id in db with current user
+                var userObject = context.Users.Single(p => p.Id == userId);
+
+                return View(userObject);
+            }
+        }
+
+        public ActionResult UpdateDetails(ApplicationUser user)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                //current user
+                var userId = User.Identity.GetUserId();
+
+                //match the Id in db with current user
+                var userObject = context.Users.Single(p => p.Id == userId);
+
+                if (user != null)
+                {
+                    userObject.FirstName = user.FirstName;
+                    userObject.Surname = user.Surname;
+                    userObject.PhoneNumber = user.PhoneNumber;
+
+                    context.SaveChanges();
+                }
+
+
+                return RedirectToAction("Index");
+            }
+        }
+        
+        //check if the billing address is null. If null redirect to new address. If not null display address; AddressViewModel is found in the accountviewmodel
+        public ActionResult Address(int? addressId = null)
+        {
+            var model = new AddressViewModel()
+            {
+                BillingAddress = new BillingAddress(),
+                CountriesList = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Select(p =>
+                {
+                    try
+                    {
+                        return new SelectListItem()
+                        {
+                            Text = new RegionInfo(p.LCID).DisplayName,
+                            Value = p.LCID.ToString()
+                        };
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                })
+                .Where(p => p != null)
+                .DistinctBy(p => p.Text)
+                .OrderBy(p => p.Text)
+                .ToList()
+            };
+
+            if (addressId == null)
+                return View(model);
+
+            using (var context = new OnlineStoreContext())
+            {
+                var userId = User.Identity.GetUserId();
+                var address = context.BillingAddress.Where(p => p.CustomerId == userId).Single();
+
+                model.BillingAddress = address;
+
+                return View(model);
+            }
+        }
+
+        public ActionResult UpdateAddress(BillingAddress address)
+        {
+            using (var context = new OnlineStoreContext())
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult Addresses()
+        {
+            using (var context = new OnlineStoreContext())
+            {
+                var userId = User.Identity.GetUserId();
+
+                //return a list of billing addresses where the customerid == userid
+                var billingAddresses = context.BillingAddress.Where(p => p.CustomerId == userId).ToList();
+
+                return View(billingAddresses);
+            }
+        }
+        //purpose obtain orders that belong to 1 user; therefore create several orders/customer, therefore create ToList; several orderids are linked to one Customer
+        //there is no order form as this is used to display items that have been ordered
+        //purchaseddetails table-this contains details of items ordered/customer
+        //user logins ensure to view their purchased details. userid is id given to user-user identifier. match the userId (loggin id ) to custoemrid
+        //GET method as we are not modifiying anything
+        public ActionResult Orders()
+        {
+            using (var context = new OnlineStoreContext())
+            {
+
+                var userId = User.Identity.GetUserId();
+                var orders = context.PurchasedDetails.Where(p => p.CustomerId == userId).ToList();
+
+                return View(orders);
+            }
+        }
+
+        //create Credit Card form
+        //1 user can have several credit cards stored
+        //GET: Account/PaymentCard
+        public ActionResult Card()
+        {
+            using (var context = new OnlineStoreContext())
+            {
+                return View();
+            }
+        }
+
+        public ActionResult SubmitCard()
+        {
+            return View();
+        }
+
+        //list of credit cards and choose from them
+        //HTTP:POST Account/Cards
+        [Authorize]
+        public ActionResult Cards()
+        {
+            using (var context = new OnlineStoreContext())
+            {
+                var userId = User.Identity.GetUserId();
+                var cardsOp = context.PaymentOptions.Where(p => p.CustomerId == userId).ToList();
+
+                return View(cardsOp);
+            }
+        }
+        /*
+
+    //create a cart. 
+    //1.create the cart;2. add items to cart. create a new item if cart item does not exist
+    //GET:/Account/Cart
+    public ActionResult AddToCart(int cart, int cartItem)
+    {
+        using (var context = new OnlineStoreContext())
+        {
+            var chocolateItem = context.Carts.SingleOrDefault(p => p.ChocolateId == cart.ChocolateId);
+            var wineItem = context.Carts.SingleOrDefault(p => p.WineId == cart.WineId);
+            //var cartItem = context.Carts.Where(p => p.WineId == cart.WineId || p.ChocolateId == cart.ChocolateId).SingleOrDefault();
+
+            if (chocolateItem == null || wineItem == null)
+            {
+                chocolateItem = new Cart
+                {
+                    CartId = +1,
+                    ChocolateId = cart.ChocolateId,
+                    WineId = cart.WineId,
+                    DateCreated = DateTime.Now,
+                    Count = 1
+
+                };
+                context.Carts.Add(chocolateItem);
+            }
+            else
+            {
+                var addItem = chocolateItem.Count + 1;
+            }
+
+        }
+        return View();
+    }
+
+    //GET: Account/RemoveCartItem
+    public ActionResult RemoveCartItem(int id, int cartId)
+    {
+        using (var context = new OnlineStoreContext())
+        {
+            var cart = context.Carts.Where(P => P.CartId == id);
+
+            //delete the cart item
+
+            if (cart != null)
+            {
+
+
+
+            }
+
+            return View();
+
+        }
+
+    }
+
+    //GET: Account/EmptyCart
+    public ActionResult EmptyCart()
+    {
+        using (var context = new OnlineStoreContext())
+        {
+
+
+            return View();
+        }
+
+    }
+
+    //Diplay list of items in a cart
+    //GET: Account/CartList
+    //Display Paypal and Credit Card hpyerlinks from cartList page
+    [Authorize]
+    public ActionResult CartList()
+    {
+
+        using (var context = new OnlineStoreContext())
+        {
+            var userId = User.Identity.GetUserId();
+            var cartList = context.Carts.Where(p => p.CustomerId == userId).ToList();
+
+            return View(cartList);
+
+        }
+
+
+    }*/
+
+
+
+
         #endregion
 
         #region Helpers

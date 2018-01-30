@@ -1,34 +1,37 @@
-﻿@model OnlineStore.Models.BillingAddress
+﻿@model OnlineStore.Models.AddressViewModel
 
 @{
     ViewBag.Title = "Address";
 }
 
-        <div>
-            @Html.DisplayNameFor(Model => Model.Fullname)
-            @Html.EditorFor(Model => Model.Fullname)
-        </div>
-        <div>
-            @Html.DisplayNameFor(Model => Model.HouseName)
-            @Html.EditorFor(Model => Model.HouseName)
-        </div>
+@using (Html.BeginForm("UpdateAddress", "Account"))
+{
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.Fullname)
+        @Html.EditorFor(Model => Model.BillingAddress.Fullname)
+    </div>
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.HouseName)
+        @Html.EditorFor(Model => Model.BillingAddress.HouseName)
+    </div>
 
-        <div>
-            @Html.DisplayNameFor(Model => Model.StreetAddress)
-            @Html.EditorFor(Model => Model.StreetAddress)
-        </div>
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.StreetAddress)
+        @Html.EditorFor(Model => Model.BillingAddress.StreetAddress)
+    </div>
 
-        <div>
-            @Html.DisplayNameFor(Model => Model.City)
-            @Html.EditorFor(Model => Model.City)
-        </div>
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.City)
+        @Html.EditorFor(Model => Model.BillingAddress.City)
+    </div>
 
-        <div>
-            @Html.DisplayNameFor(Model => Model.Country)
-            @Html.EditorFor(Model => Model.Country)
-        </div>
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.Country)
+        @Html.DropDownListFor(Model => Model.BillingAddress.Country, Model.CountriesList)
+    </div>
 
-        <div>
-            @Html.DisplayNameFor(Model => Model.PostCode)
-            @Html.EditorFor(Model => Model.PostCode)
-        </div>
+    <div>
+        @Html.DisplayNameFor(Model => Model.BillingAddress.PostCode)
+        @Html.EditorFor(Model => Model.BillingAddress.PostCode)
+    </div>
+}

@@ -64,5 +64,7 @@ namespace OnlineStore.Models
         public DbSet<PropertyAndValue> ProductProperties { get; set; }
 
         public DbSet<Property> ProductPropertyNames { get; set; }
+
+        public DbSet<PaymentOptions> PaymentOptions { get; set; }
     }
 }

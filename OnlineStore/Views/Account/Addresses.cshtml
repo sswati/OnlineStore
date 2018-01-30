@@ -1,39 +1,36 @@
 ﻿@model List<OnlineStore.Models.BillingAddress>
 
-        @foreach (var item in Model)
+@foreach (var item in Model)
 
-        {
+{
+    <div>
+        @Html.DisplayNameFor(Model => item.Fullname)
+        @Html.DisplayFor(Model => item.Fullname)
+    </div>
+    <div>
+        @Html.DisplayNameFor(Model => item.HouseName)
+        @Html.DisplayFor(Model => item.HouseName)
+    </div>
 
-            <div>
-                @Html.DisplayNameFor(Model => item.Fullname)
-                @Html.DisplayFor(Model => item.Fullname)
-            </div>
-            <div>
-                @Html.DisplayNameFor(Model => item.HouseName)
-                @Html.DisplayFor(Model => item.HouseName)
-            </div>
+    <div>
+        @Html.DisplayNameFor(Model => item.StreetAddress)
+        @Html.DisplayFor(Model => item.StreetAddress)
+    </div>
 
-            <div>
-                @Html.DisplayNameFor(Model => item.StreetAddress)
-                @Html.DisplayFor(Model => item.StreetAddress)
-            </div>
+    <div>
+        @Html.DisplayNameFor(Model => item.City)
+        @Html.DisplayFor(Model => item.City)
+    </div>
 
-            <div>
-                @Html.DisplayNameFor(Model => item.City)
-                @Html.DisplayFor(Model => item.City)
-            </div>
+    <div>
+        @Html.DisplayNameFor(Model => item.Country)
+        @Html.DisplayFor(Model => item.Country)
+    </div>
 
-            <div>
-                @Html.DisplayNameFor(Model => item.Country)
-                @Html.DisplayFor(Model => item.Country)
-            </div>
+    <div>
+        @Html.DisplayNameFor(Model => item.PostCode)
+        @Html.DisplayFor(Model => item.PostCode)
+    </div>
+}
 
-            <div>
-                @Html.DisplayNameFor(Model => item.PostCode)
-                @Html.DisplayFor(Model => item.PostCode)
-        </div>
-
-
-        }
-        
-        @Html.ActionLink("New Address","Address")
+@Html.ActionLink("New Address", "Address")
